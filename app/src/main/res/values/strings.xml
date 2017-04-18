@@ -1,3 +1,15 @@
 <resources>
-    <string name="app_name">OnDraw</string>
+    <string name="app_name">Triangle</string>
+
+    <string name="lineA">邊長A</string>
+    <string name="lineB">邊長B</string>
+    <string name="lineC">邊長C</string>
+
+    <string name="angleAB">角度AB</string>
+    <string name="angleAC">角度AC</string>
+    <string name="angleBC">角度BC</string>
+
+
+    <string name="start">開始產生</string>
+
 </resources>
