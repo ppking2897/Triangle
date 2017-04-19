@@ -11,5 +11,6 @@
 
 
     <string name="start">開始產生</string>
+    <string name="clear">清空</string>
 
 </resources>
