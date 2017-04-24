@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 
 
@@ -140,13 +141,14 @@ public class OnDraw extends View {
         paintText.setStyle(Paint.Style.STROKE);
         paintText.setStrokeWidth(8);
 
-        rectF.set(b_Point_Start_X-(b_Point_Start_X/2) , b_Point_Start_Y -(b_Point_Start_X/2) , b_Point_Start_X+(b_Point_Start_X/2) ,b_Point_Start_Y+(b_Point_Start_X/2));
+        Log.v("ppking" , "b_Point_Start_X : " + b_Point_Start_X);
+        rectF.set(b_Point_Start_X-(b_TextCenterX/4) , b_Point_Start_Y -(b_TextCenterX/4) , b_Point_Start_X+(b_TextCenterX/4) ,b_Point_Start_Y+(b_TextCenterX/4));
         canvas.drawArc(rectF , 0 , -(float)angleDeg_ab  ,false ,paintText);
 
-        rectF.set(a_Point_End_X-(a_Point_End_X/5) , a_Point_End_Y-(a_Point_End_X/5) , a_Point_End_X+(a_Point_End_X/5) ,a_Point_End_Y+(a_Point_End_X/5));
+        rectF.set(a_Point_End_X-(b_TextCenterX/4) , a_Point_End_Y-(b_TextCenterX/4) , a_Point_End_X+(b_TextCenterX/4) ,a_Point_End_Y+(b_TextCenterX/4));
         canvas.drawArc(rectF , 180 - ((float)angleDeg_ac + (float)angleDeg_ab) , (float)angleDeg_ac ,false ,paintText);
 
-        rectF.set(b_Point_End_X-(b_Point_End_X/7) , b_Point_End_Y-(b_Point_End_X/7) , b_Point_End_X+(b_Point_End_X/7) ,b_Point_End_Y+(b_Point_End_X/7));
+        rectF.set(b_Point_End_X-(b_TextCenterX/4) , b_Point_End_Y-(b_TextCenterX/4) , b_Point_End_X+(b_TextCenterX/4) ,b_Point_End_Y+(b_TextCenterX/4));
         canvas.drawArc(rectF , 180 , (float)angleDeg_bc , false , paintText );
 
         //邊長 角度 字體顯示

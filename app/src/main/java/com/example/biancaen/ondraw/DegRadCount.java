@@ -116,6 +116,25 @@ class DegRadCount {
             initial(mainActivity);
         }
 
+        Log.v("ppking" , "  a_Point_End_Y  : " + a_Point_End_Y );
+        Log.v("ppking" , "  viewCenterHeight  : " + viewCenterHeight*3/2 );
+        Log.v("ppking" , "  proportion  : " + proportion );
+        Log.v("ppking" , "  big_b  : " + big_b );
+
+
+        for (int i = proportion ; a_Point_End_Y < viewCenterHeight/4 ; i-- ){
+
+            Log.v("ppking" , "  a_Point_End_Y  : " + a_Point_End_Y );
+            Log.v("ppking" , "  viewCenterHeight  : " + viewCenterHeight*3/2 );
+            Log.v("ppking" , "  proportion  : " + proportion );
+            Log.v("ppking" , "  big_b  : " + big_b );
+            proportion = i;
+            big_a = a *proportion;
+            big_b = b *proportion;
+            big_c = c *proportion;
+            initial(mainActivity);
+        }
+
         //檢查顯示的座標點是否超出設定的視窗範圍，若是的話減少比例大小
         for (int i = proportion ; b_Point_End_X > 2*viewCenterWidth/14*12 ; i-- ){
             proportion = i;
