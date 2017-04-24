@@ -7,12 +7,14 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.CheckBox;
 import android.widget.EditText;
 
 public class MainActivity extends AppCompatActivity {
     EditText lineA, lineB, lineC, angleAB, angleBC, angleAC;
     OnDraw onDraw;
     DegRadCount degRadCount;
+    CheckBox checkTest;
     private boolean show;
     private int proportion;
 
@@ -31,6 +33,8 @@ public class MainActivity extends AppCompatActivity {
         angleAC = (EditText) findViewById(R.id.angleAC);
         angleBC = (EditText) findViewById(R.id.angleBC);
 
+        checkTest = (CheckBox) findViewById(R.id.checkTest);
+
         Click click = new Click();
 
         lineA.setOnClickListener(click);
@@ -39,29 +43,19 @@ public class MainActivity extends AppCompatActivity {
         angleAB.setOnClickListener(click);
         angleAC.setOnClickListener(click);
         angleBC.setOnClickListener(click);
-
-        proportion = 500;
-        show = false;
-        degRadCount = new DegRadCount(this, proportion , show);
-
     }
 
-    public void button(View view) {
 
+    public void button(View view) {
         //按下按鈕關閉鍵盤
         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(findViewById(R.id.button).getWindowToken(), 0);
 
         //放大比例
-        proportion = 500;
         show = true ;
         degRadCount = new DegRadCount(this , proportion , show);
-
-
-
     }
     public void clear(View view){
-
         lineA.setText("");
         lineB.setText("");
         lineC.setText("");
@@ -69,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
         angleBC.setText("");
         angleAC.setText("");
         show = false;
-        degRadCount = new DegRadCount(this, 0 , show);
+        degRadCount = new DegRadCount(this, proportion , show);
     }
 
     //點擊空白處關閉鍵盤，判斷是否有點擊到整個畫面的view
@@ -94,5 +88,13 @@ public class MainActivity extends AppCompatActivity {
             editText.setSelectAllOnFocus(true);
             Log.v("ppking" , " true :::" + id);
         }
+    }
+    //等到View讀取結束再去做出圖畫初始值動作
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        proportion = 600;
+        show = false;
+        degRadCount = new DegRadCount(this, proportion , show);
     }
 }

@@ -15,45 +15,93 @@ public class OnDraw extends View {
     private double a;
     private double b;
     private double c;
-
     //經過比例放大的b邊長
-    private double big_B;
 
-    private double ab_xPoint;
-    private double ab_yPoint;
-    private double bc_xPoint;
-    private double bc_yPoint;
-    private double ac_xPoint;
-    private double ac_yPoint;
+    private float b_Point_Start_X;
+    private float b_Point_Start_Y;
+    private float b_Point_End_X;
+    private float b_Point_End_Y;
+
+    private float a_Point_Start_X;
+    private float a_Point_Start_Y;
+    private float a_Point_End_X;
+    private float a_Point_End_Y;
+
+    private float ac_Point_Start_X;
+    private float ac_Point_Start_Y;
+    private float ac_Point_End_X;
+    private float ac_Point_End_Y;
+
+    private float bc_Point_Start_X;
+    private float bc_Point_Start_Y;
+    private float bc_Point_End_X;
+    private float bc_Point_End_Y;
+
+    private float b_TextCenterX;
+    private float b_TextCenterY;
+    private float a_TextCenterX;
+    private float a_TextCenterY;
+    private float c_TextCenterX;
+    private float c_TextCenterY;
+
+    private int textSize;
 
     private double angleDeg_ab;
     private double angleDeg_ac;
     private double angleDeg_bc;
 
-    private boolean show;
+    private boolean show=false;
 
-    public void setParameter(double ab_xPoint , double ab_yPoint ,
-                             double ac_xPoint , double ac_yPoint ,
-                             double bc_xPoint , double bc_yPoint ,
-                             boolean show)
+    public void setParameter(float b_Point_Start_X ,float b_Point_Start_Y ,
+                             float b_Point_End_X , float b_Point_End_Y,
+                             float a_Point_Start_X , float a_Point_Start_Y,
+                             float a_Point_End_X , float a_Point_End_Y,
+                             float ac_Point_Start_X , float ac_Point_Start_Y,
+                             float ac_Point_End_X , float ac_Point_End_Y,
+                             float bc_Point_Start_X , float bc_Point_Start_Y,
+                             float bc_Point_End_X , float bc_Point_End_Y)
     {
-        // x = cos角度 *r   y  = sin角度*r  ab bc ac 為參考邊長的角度
-        this.ab_xPoint = ab_xPoint;
-        this.ab_yPoint = ab_yPoint;
-        this.bc_xPoint = bc_xPoint;
-        this.bc_yPoint = bc_yPoint;
-        this.ac_xPoint = ac_xPoint;
-        this.ac_yPoint = ac_yPoint;
+        this.b_Point_Start_X = b_Point_Start_X;
+        this.b_Point_Start_Y = b_Point_Start_Y;
+        this.b_Point_End_X = b_Point_End_X;
+        this.b_Point_End_Y = b_Point_End_Y;
 
+        this.a_Point_Start_X = a_Point_Start_X;
+        this.a_Point_Start_Y = a_Point_Start_Y;
+        this.a_Point_End_X = a_Point_End_X;
+        this.a_Point_End_Y = a_Point_End_Y;
+
+        this.ac_Point_Start_X = ac_Point_Start_X;
+        this.ac_Point_Start_Y = ac_Point_Start_Y;
+        this.ac_Point_End_X = ac_Point_End_X;
+        this.ac_Point_End_Y = ac_Point_End_Y;
+
+        this.bc_Point_Start_X = bc_Point_Start_X;
+        this.bc_Point_Start_Y = bc_Point_Start_Y;
+        this.bc_Point_End_X = bc_Point_End_X;
+        this.bc_Point_End_Y = bc_Point_End_Y;
+    }
+
+    public void setTextCenter(float b_TextCenterX , float b_TextCenterY,
+                              float a_TextCenterX , float a_TextCenterY,
+                              float c_TextCenterX , float c_TextCenterY,
+                              int textSize , boolean show)
+    {
+        this.b_TextCenterX = b_TextCenterX;
+        this.b_TextCenterY = b_TextCenterY;
+        this.a_TextCenterX = a_TextCenterX;
+        this.a_TextCenterY = a_TextCenterY;
+        this.c_TextCenterX = c_TextCenterX;
+        this.c_TextCenterY = c_TextCenterY;
+        this.textSize = textSize;
         this.show = show;
     }
 
-    public void setLine(double a , double b , double c , int proportion)
+    public void setLine(double a , double b , double c)
     {
         this.a = a;
         this.b = b;
         this.c = c;
-        big_B = proportion * b;
     }
 
     public void setAngle(double angleDeg_ab , double angleDeg_ac , double angleDeg_bc){
@@ -62,71 +110,21 @@ public class OnDraw extends View {
         this.angleDeg_ac = angleDeg_ac;
         this.angleDeg_bc = angleDeg_bc;
     }
-
-
     Paint paint = new Paint();
     Paint paintText = new Paint();
     RectF rectF = new RectF();
 
-
     public OnDraw(Context context , AttributeSet attributeSet){
         super(context , attributeSet);
     }
+
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         paint.setColor(Color.BLACK);
         paint.setStrokeWidth(8);
-
-        //TODO 各解析度字體大小
-        float textCount = 3;
-        float textSize = 50;
-        float textTotalSize = textCount * textSize;
         paint.setTextSize(textSize);
-
-
-        float viewCenterWidth = getWidth()/2;
-        float viewCenterHeight = getHeight()/2;
-
-        //-----B邊長為第一步，viewCenterWidth - ((float)big_B/2 是為了讓b邊長的一半都維持在view的中間
-        float b_Point_Start_X = viewCenterWidth - ((float) big_B / 2);
-        float b_Point_Start_Y = viewCenterHeight;
-
-        float b_Point_End_X = b_Point_Start_X + (float) big_B;
-        float b_Point_End_Y = b_Point_Start_Y;
-
-        //----依B邊長為基準點，A邊長起始點跟B邊長一樣，再利用角度求出A邊長的末端座標
-        float a_Point_Start_X = b_Point_Start_X;
-        float a_Point_Start_Y = b_Point_Start_Y;
-
-        float a_Point_End_X = b_Point_Start_X + (float) ab_xPoint;
-        float a_Point_End_Y = b_Point_Start_Y + (float) ab_yPoint;
-
-        //-----依A邊長為基準點，C邊長起始點為A邊長末端座標
-        float ac_Point_Start_X = a_Point_End_X;
-        float ac_Point_Start_Y = a_Point_End_Y;
-
-        float ac_Point_End_X = a_Point_End_X + (float) ac_xPoint;
-        float ac_Point_End_Y = a_Point_End_Y + (float) ac_yPoint;
-
-        //-----
-        float bc_Point_Start_X = b_Point_End_X;
-        float bc_Point_Start_Y = b_Point_End_Y;
-
-        float bc_Point_End_X = b_Point_End_X + (float) bc_xPoint;
-        float bc_Point_End_Y = b_Point_End_Y + (float) bc_yPoint;
-
-        //-----各個文字的至中點
-        float b_TextCenterX = viewCenterWidth - (textTotalSize / 2);
-        float b_TextCenterY = b_Point_Start_Y + textSize * 2;
-
-        float a_TextCenterX = b_Point_Start_X + ((float) ab_xPoint / 2) - textTotalSize - textSize * 2;
-        float a_TextCenterY = b_Point_Start_Y + ((float) ab_yPoint / 2);
-
-        float c_TextCenterX = a_Point_End_X + ((float) ac_xPoint / 2) + textSize;
-        float c_TextCenterY = a_Point_End_Y + ((float) ac_yPoint / 2);
-
 
         //底部線 b
         canvas.drawLine(b_Point_Start_X , b_Point_Start_Y , b_Point_End_X , b_Point_End_Y  , paint);
@@ -142,13 +140,13 @@ public class OnDraw extends View {
         paintText.setStyle(Paint.Style.STROKE);
         paintText.setStrokeWidth(8);
 
-        rectF.set(b_Point_Start_X-100 , b_Point_Start_Y -100 , b_Point_Start_X+100 ,b_Point_Start_Y+100);
+        rectF.set(b_Point_Start_X-(b_Point_Start_X/2) , b_Point_Start_Y -(b_Point_Start_X/2) , b_Point_Start_X+(b_Point_Start_X/2) ,b_Point_Start_Y+(b_Point_Start_X/2));
         canvas.drawArc(rectF , 0 , -(float)angleDeg_ab  ,false ,paintText);
 
-        rectF.set(a_Point_End_X-90 , a_Point_End_Y-90 , a_Point_End_X+90 ,a_Point_End_Y+90);
+        rectF.set(a_Point_End_X-(a_Point_End_X/5) , a_Point_End_Y-(a_Point_End_X/5) , a_Point_End_X+(a_Point_End_X/5) ,a_Point_End_Y+(a_Point_End_X/5));
         canvas.drawArc(rectF , 180 - ((float)angleDeg_ac + (float)angleDeg_ab) , (float)angleDeg_ac ,false ,paintText);
 
-        rectF.set(b_Point_End_X-90 , b_Point_End_Y-90 , b_Point_End_X+90 ,b_Point_End_Y+90);
+        rectF.set(b_Point_End_X-(b_Point_End_X/7) , b_Point_End_Y-(b_Point_End_X/7) , b_Point_End_X+(b_Point_End_X/7) ,b_Point_End_Y+(b_Point_End_X/7));
         canvas.drawArc(rectF , 180 , (float)angleDeg_bc , false , paintText );
 
         //邊長 角度 字體顯示
@@ -169,10 +167,5 @@ public class OnDraw extends View {
             canvas.drawText("角度AC", a_Point_End_X - 3*textSize/2 , a_Point_End_Y - textSize/2 , paint);
             canvas.drawText("角度BC", b_Point_End_X - 3*textSize/2 , b_Point_End_Y + + 3*textSize/2 , paint);
         }
-
-
     }
-
-
-
 }

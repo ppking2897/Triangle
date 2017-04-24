@@ -20,6 +20,7 @@
             android:inputType="numberDecimal"
             android:hint="@string/lineA"
             android:gravity="center"
+            android:selectAllOnFocus="true"
             />
         <EditText
             android:id="@+id/lineB"
@@ -89,7 +90,7 @@
             android:layout_weight="1"
             android:onClick="button"
             android:text="@string/start"
-
+            android:textSize="15sp"
             />
 
         <Button
@@ -100,6 +101,16 @@
             android:onClick="clear"
             android:layout_weight="1"
             style="@style/Widget.AppCompat.Button"
+            android:textSize="15sp"
+            />
+        <CheckBox
+            android:id="@+id/checkTest"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/check"
+            android:layout_weight="1"
+            android:layout_marginLeft="25dp"
+            android:textSize="15sp"
             />
     </LinearLayout>
     <com.example.biancaen.ondraw.OnDraw
