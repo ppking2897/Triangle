@@ -151,6 +151,7 @@ public class OnDraw extends View {
         rectF.set(b_Point_End_X-(b_TextCenterX/4) , b_Point_End_Y-(b_TextCenterX/4) , b_Point_End_X+(b_TextCenterX/4) ,b_Point_End_Y+(b_TextCenterX/4));
         canvas.drawArc(rectF , 180 , (float)angleDeg_bc , false , paintText );
 
+        
         //邊長 角度 字體顯示
         if (show) {
             canvas.drawText(b + "公分", b_TextCenterX, b_TextCenterY, paint);
