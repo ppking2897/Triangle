@@ -141,7 +141,6 @@ public class OnDraw extends View {
         paintText.setStyle(Paint.Style.STROKE);
         paintText.setStrokeWidth(8);
 
-        Log.v("ppking" , "b_Point_Start_X : " + b_Point_Start_X);
         rectF.set(b_Point_Start_X-(b_TextCenterX/4) , b_Point_Start_Y -(b_TextCenterX/4) , b_Point_Start_X+(b_TextCenterX/4) ,b_Point_Start_Y+(b_TextCenterX/4));
         canvas.drawArc(rectF , 0 , -(float)angleDeg_ab  ,false ,paintText);
 
@@ -151,7 +150,7 @@ public class OnDraw extends View {
         rectF.set(b_Point_End_X-(b_TextCenterX/4) , b_Point_End_Y-(b_TextCenterX/4) , b_Point_End_X+(b_TextCenterX/4) ,b_Point_End_Y+(b_TextCenterX/4));
         canvas.drawArc(rectF , 180 , (float)angleDeg_bc , false , paintText );
 
-        
+
         //邊長 角度 字體顯示
         if (show) {
             canvas.drawText(b + "公分", b_TextCenterX, b_TextCenterY, paint);

@@ -116,18 +116,18 @@ class DegRadCount {
             initial(mainActivity);
         }
 
-        Log.v("ppking" , "  a_Point_End_Y  : " + a_Point_End_Y );
-        Log.v("ppking" , "  viewCenterHeight  : " + viewCenterHeight*3/2 );
-        Log.v("ppking" , "  proportion  : " + proportion );
-        Log.v("ppking" , "  big_b  : " + big_b );
+        for (int i = proportion ; a_Point_End_X < 0 ; i-- ){
+            proportion = i;
+            big_a = a *proportion;
+            big_b = b *proportion;
+            big_c = c *proportion;
+            initial(mainActivity);
+        }
 
+        Log.v("ppking" , "  a_Point_End_Y  : " + a_Point_End_X );
 
         for (int i = proportion ; a_Point_End_Y < viewCenterHeight/4 ; i-- ){
 
-            Log.v("ppking" , "  a_Point_End_Y  : " + a_Point_End_Y );
-            Log.v("ppking" , "  viewCenterHeight  : " + viewCenterHeight*3/2 );
-            Log.v("ppking" , "  proportion  : " + proportion );
-            Log.v("ppking" , "  big_b  : " + big_b );
             proportion = i;
             big_a = a *proportion;
             big_b = b *proportion;
